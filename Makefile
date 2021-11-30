@@ -2,13 +2,17 @@ NAME = philo
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -pthread
+FLAGS = -pthread
+#-Wall -Wextra -Werror 
 
-MAIN_SRCS = philosophers.c
+MAIN_SRCS = philosophers.c\
+			util_funcs.c\
+			time.c\
+			philo_living.c
 
 HEADERS = philosophers.h
 
-SRCS = $(MAIN_SRC)
+SRCS = $(MAIN_SRCS)
 # SRCS = $(addprefix srcs/, $(MAIN_SRC))
 
 OBJS = $(SRCS:c=o)

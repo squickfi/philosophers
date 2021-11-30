@@ -35,10 +35,18 @@ typedef struct s_philo_info
 	pthread_mutex_t	*fork;
 }		t_philo_info;
 
+t_philo_info	g_info;
+
+//time.c
+int		get_time(void);
+
 //util_funcs.c
 int		ft_atoi(char *str);
 
+//philo_living.c
+void	*live(t_philo *philo);
+
 //philosophers.c
-void	init_info(t_philo_info *info, char **argv);
+int		init_info(char **argv);
 
 #endif
