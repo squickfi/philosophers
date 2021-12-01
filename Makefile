@@ -6,9 +6,6 @@ FLAGS = -pthread
 #-Wall -Wextra -Werror 
 
 MAIN_SRCS = philosophers.c\
-			util_funcs.c\
-			time.c\
-			philo_living.c
 
 HEADERS = philosophers.h
 
