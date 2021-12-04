@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:32:52 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 22:35:05 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 23:35:35 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_philo_info
 	int				fed_philos;
 	int				is_anyone_dead;
 	t_philo			*philo;
-	pthread_mutex_t	write_to_terminal;
 	pthread_mutex_t	*fork;
 }					t_philo_info;
 
@@ -66,7 +65,7 @@ int				get_args(int argc, char **argv, t_philo_info *data);
 void			init_philo(t_philo_info *data, int i);
 int				init_philos_and_forks(t_philo_info *data);
 void			user_usleep(int	time_to_wait);
-void			life_cycle(t_philo *philo);
+int				life_cycle(t_philo *philo);
 void			*live(t_philo *philo);
 
 //philosophers.c

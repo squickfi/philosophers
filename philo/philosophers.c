@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:24:09 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 22:35:31 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 23:35:26 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,11 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_philos_and_forks(&data))
 		return (1);
-	pthread_mutex_init(&data.write_to_terminal, NULL);
 	data.start_time = get_time();
 	create_threads(&data);
 	philos_status = check_death(&data);
 	join_threads_and_destroy_mutexes(&data);
 	free(data.fork);
 	free(data.philo);
-	pthread_mutex_unlock(&data.write_to_terminal);
-	pthread_mutex_destroy(&data.write_to_terminal);
 	return (philos_status);
 }
