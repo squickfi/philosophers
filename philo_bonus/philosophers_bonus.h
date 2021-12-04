@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:24:06 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 02:34:59 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 22:59:32 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 typedef struct s_philo
 {
 	pthread_t			dead;
+	int					death;
 	int					philo_num;
 	int					eat_times;
 	unsigned long		last_eat_time;
@@ -76,7 +77,7 @@ void			create_philos(t_philo_info *data);
 //philosophers.c
 void			init_semaphores(t_philo_info *data);
 void			close_semaphores(t_philo_info *data);
-void			print_massage2(int flag, t_philo *philo);
-void			print_massage(int flag, t_philo *philo);
+int				print_massage2(int flag, t_philo *philo);
+int				print_massage(int flag, t_philo *philo);
 
 #endif

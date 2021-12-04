@@ -6,54 +6,57 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:24:04 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 02:29:31 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 23:01:09 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-void	print_massage2(int flag, t_philo *philo)
+int	print_massage2(int flag, t_philo *philo)
 {
 	if (flag == SLEEPING)
 	{
 		printf("%ld %d is sleeping\n", (unsigned long)(get_time() - \
 			philo->data->start_time), philo->philo_num);
 		sem_post(philo->data->write);
-		return ;
+		return (0);
 	}
 	if (flag == THINKING)
 	{
 		printf("%ld %d is thinking\n", (unsigned long)(get_time() - \
 			philo->data->start_time), philo->philo_num);
 		sem_post(philo->data->write);
-		return ;
+		return (0);
 	}
 	if (flag == DEAD)
 	{
 		printf("%ld %d is dead\n", (unsigned long)(get_time() - \
 			philo->data->start_time), philo->philo_num);
-		return ;
+		return (0);
 	}
+	return (0);
 }
 
-void	print_massage(int flag, t_philo *philo)
+int	print_massage(int flag, t_philo *philo)
 {
 	sem_wait(philo->data->write);
+	if (philo->death && flag != DEAD)
+		return (1);
 	if (flag == TAKING_FORK)
 	{
 		printf("%ld %d has taken a fork\n", (unsigned long)(get_time() - \
 			philo->data->start_time), philo->philo_num);
 		sem_post(philo->data->write);
-		return ;
+		return (0);
 	}
 	if (flag == EATING)
 	{
 		printf("%ld %d is eating\n", (unsigned long)(get_time() - \
 			philo->data->start_time), philo->philo_num);
 		sem_post(philo->data->write);
-		return ;
+		return (0);
 	}
-	print_massage2(flag, philo);
+	return (print_massage2(flag, philo));
 }
 
 void	close_semaphores(t_philo_info *data)
@@ -104,8 +107,6 @@ void	init_semaphores(t_philo_info *data)
 int	main(int argc, char **argv)
 {
 	t_philo_info	data;
-	int				i;
-	int				philos_status;
 
 	if (get_args(argc, argv, &data))
 		return (1);

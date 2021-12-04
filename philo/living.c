@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:24:07 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 02:32:30 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 22:44:17 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,38 @@ void	user_usleep(int	time_to_wait)
 		usleep(100);
 }
 
+void	life_cycle(t_philo *philo)
+{
+	user_usleep(philo->data->time_to_eat);
+	philo->last_eat_time = get_time();
+	philo->eat_times++;
+	pthread_mutex_unlock(&philo->data->fork[philo->left_fork]);
+	pthread_mutex_unlock(&philo->data->fork[philo->right_fork]);
+}
+
 void	*live(t_philo *philo)
 {
 	while (philo->eat_times != philo->data->num_of_times_to_eat && \
 		!philo->data->is_anyone_dead)
 	{
 		pthread_mutex_lock(&philo->data->fork[philo->left_fork]);
-		print_massage(TAKING_FORK, philo);
+		if (print_massage(TAKING_FORK, philo))
+			return (NULL);
+		if (philo->data->num_of_philos == 1)
+			return (NULL);
 		pthread_mutex_lock(&philo->data->fork[philo->right_fork]);
-		print_massage(TAKING_FORK, philo);
-		print_massage(EATING, philo);
-		user_usleep(philo->data->time_to_eat);
-		philo->last_eat_time = get_time();
-		philo->eat_times++;
-		pthread_mutex_unlock(&philo->data->fork[philo->left_fork]);
-		pthread_mutex_unlock(&philo->data->fork[philo->right_fork]);
+		if (print_massage(TAKING_FORK, philo))
+			return (NULL);
+		if (print_massage(EATING, philo))
+			return (NULL);
+		life_cycle(philo);
 		if (philo->eat_times == philo->data->num_of_times_to_eat)
 			break ;
-		print_massage(SLEEPING, philo);
+		if (print_massage(SLEEPING, philo))
+			return (NULL);
 		user_usleep(philo->data->time_to_sleep);
-		print_massage(THINKING, philo);
+		if (print_massage(THINKING, philo))
+			return (NULL);
 	}
 	philo->data->fed_philos++;
 	return (NULL);

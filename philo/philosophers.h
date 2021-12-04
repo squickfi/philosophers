@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:32:52 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 02:32:53 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 22:35:05 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef struct s_philo_info
 
 //philo_utils.c
 int				ft_atoi(char *str);
-unsigned long	get_time(void);
+int				print_massage2(int flag, t_philo *philo);
+int				print_massage(int flag, t_philo *philo);
 int				check_args(t_philo_info *data);
 int				get_args(int argc, char **argv, t_philo_info *data);
 
@@ -65,12 +66,13 @@ int				get_args(int argc, char **argv, t_philo_info *data);
 void			init_philo(t_philo_info *data, int i);
 int				init_philos_and_forks(t_philo_info *data);
 void			user_usleep(int	time_to_wait);
+void			life_cycle(t_philo *philo);
 void			*live(t_philo *philo);
 
 //philosophers.c
-void			print_massage2(int flag, t_philo *philo);
-void			print_massage(int flag, t_philo *philo);
+unsigned long	get_time(void);
 int				check_death(t_philo_info *data);
 void			create_threads(t_philo_info *data);
+void			join_threads_and_destroy_mutexes(t_philo_info *data);
 
 #endif

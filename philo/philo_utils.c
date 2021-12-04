@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:24:08 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 02:24:09 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 22:47:06 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,46 @@ int	ft_atoi(char *str)
 	return (num);
 }
 
-unsigned long	get_time(void)
+int	print_massage2(int flag, t_philo *philo)
 {
-	struct timeval	tv;
+	if (flag == SLEEPING)
+	{
+		printf("%ld %d is sleeping\n", (unsigned long)(get_time() - \
+			philo->data->start_time), philo->philo_num);
+		return (0);
+	}
+	if (flag == THINKING)
+	{
+		printf("%ld %d is thinking\n", (unsigned long)(get_time() - \
+			philo->data->start_time), philo->philo_num);
+		return (0);
+	}
+	if (flag == DEAD)
+	{
+		printf("%ld %d is dead\n", (unsigned long)(get_time() - \
+			philo->data->start_time), philo->philo_num);
+		return (0);
+	}
+	return (0);
+}
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+int	print_massage(int flag, t_philo *philo)
+{
+	if (philo->data->is_anyone_dead && flag != DEAD)
+		return (1);
+	if (flag == TAKING_FORK)
+	{
+		printf("%ld %d has taken a fork\n", (unsigned long)(get_time() - \
+			philo->data->start_time), philo->philo_num);
+		return (0);
+	}
+	if (flag == EATING)
+	{
+		printf("%ld %d is eating\n", (unsigned long)(get_time() - \
+			philo->data->start_time), philo->philo_num);
+		return (0);
+	}
+	return (print_massage2(flag, philo));
 }
 
 int	check_args(t_philo_info *data)
