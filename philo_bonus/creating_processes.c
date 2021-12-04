@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:24:02 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 02:29:24 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/04 02:55:57 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	create_philos(t_philo_info *data)
 		waitpid(pid[i], NULL, 0);
 		i++;
 	}
-	sem_post(data->kill);
-	waitpid(kill_pid, NULL, 0);
+	kill(kill_pid, SIGKILL);
 	free(pid);
 }
