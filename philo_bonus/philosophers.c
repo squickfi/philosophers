@@ -6,7 +6,7 @@
 /*   By: squickfi <squickfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:24:04 by squickfi          #+#    #+#             */
-/*   Updated: 2021/12/04 23:04:58 by squickfi         ###   ########.fr       */
+/*   Updated: 2021/12/06 12:58:46 by squickfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,18 @@ void	close_semaphores(t_philo_info *data)
 {
 	if (data->write != SEM_FAILED)
 	{
-		sem_unlink("p_write");
 		sem_close(data->write);
+		sem_unlink("p_write");
 	}
 	if (data->forks != SEM_FAILED)
 	{
-		sem_unlink("p_forks");
 		sem_close(data->forks);
+		sem_unlink("p_forks");
 	}
 	if (data->kill != SEM_FAILED)
 	{
-		sem_unlink("p_kill");
 		sem_close(data->kill);
+		sem_unlink("p_kill");
 	}
 }
 
